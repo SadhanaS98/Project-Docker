@@ -26,5 +26,5 @@ stages:
            azureSubscription: 'my-azure-svc-con'
            appType: 'webAppLinux'
            appName: 'myflaskapp1008'
-           package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+           package: '$(System.DefaultWorkingDirectory)/**/*'
            runtimeStack: 'PYTHON|3.9'
