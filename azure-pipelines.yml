@@ -23,7 +23,7 @@ stages:
            Dockerfile: '**/Dockerfile'
        - task: ArchiveFiles@2
          inputs:
-           rootFolderOrFile: '$(Build.SourceDirectory)'
+           rootFolderOrFile: '$(Build.BinariesDirectory)'
            includeRootFolder: true
            archiveType: 'zip'
            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
@@ -38,10 +38,10 @@ stages:
    jobs:
      - job: build_and_push
        steps:          
-       - task: AzureWebApp@1
-         inputs:
-           azureSubscription: 'my-azure-svc-con'
-           appType: 'webAppLinux'
-           appName: 'myflaskapp1008'
-           package: '$(System.DefaultWorkingDirectory)'
-           runtimeStack: 'PYTHON|3.9'
+        - task: AzureWebApp@1
+          inputs:
+            azureSubscription: 'my-azure-svc-con'
+            appType: 'webAppLinux'
+            appName: 'myflaskapp1008'
+            package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+            runtimeStack: 'PYTHON|3.9'
