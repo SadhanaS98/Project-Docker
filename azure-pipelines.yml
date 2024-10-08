@@ -37,7 +37,16 @@ stages:
    displayName: Web app
    jobs:
      - job: build_and_push
-       steps:          
+       steps: 
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            buildType: 'specific'
+            project: '8bd0de85-9181-46cd-b1f5-21c91b2dbd32'
+            pipeline: '6'
+            buildVersionToDownload: 'latest'
+            downloadType: 'single'
+            artifactName: 'drop'
+            downloadPath: '$(System.ArtifactsDirectory)'
         - task: AzureWebApp@1
           inputs:
             azureSubscription: 'my-azure-svc-con'
