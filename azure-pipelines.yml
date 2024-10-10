@@ -25,5 +25,5 @@ stages:
         - task: AzureWebAppContainer@1
           inputs:
             azureSubscription: 'my-azure-svc-con'  # Your Azure service connection
-            appName: 'flaskwebapp1008'              # Your Azure Web App name
+            appName: 'flaskwebapp1009'              # Your Azure Web App name
             imageName: 'myacrrepo:$(Build.BuildId)' # Your Docker image from ACR
