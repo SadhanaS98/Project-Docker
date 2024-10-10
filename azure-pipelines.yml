@@ -12,11 +12,10 @@ stages:
        steps:
        - task: Docker@2
          inputs:
-           containerRegistry: 'myacrcon'  # Use your Azure Container Registry service connection
-           repository: 'myacrrepo'        # The name of your repository in ACR
+           containerRegistry: 'acr-con'
+           repository: 'myacrrepo'
            command: 'buildAndPush'
            Dockerfile: '**/Dockerfile'
-           tags: '$(Build.BuildId)'
 
  - stage: Deploy_to_WebApp_Container
    displayName: Deploy to Web App Container
@@ -26,5 +25,5 @@ stages:
         - task: AzureWebAppContainer@1
           inputs:
             azureSubscription: 'my-azure-svc-con'  # Your Azure service connection
-            appName: 'myflaskapp1008'              # Your Azure Web App name
+            appName: 'flaskwebapp1008'              # Your Azure Web App name
             imageName: 'myacrrepo:$(Build.BuildId)' # Your Docker image from ACR
