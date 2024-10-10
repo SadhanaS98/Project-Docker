@@ -17,13 +17,4 @@ stages:
            command: 'buildAndPush'
            Dockerfile: '**/Dockerfile'
 
- - stage: Deploy_to_WebApp_Container
-   displayName: Deploy to Web App Container
-   jobs:
-     - job: deploy
-       steps: 
-        - task: AzureWebAppContainer@1
-          inputs:
-            azureSubscription: 'my-azure-svc-con'  # Your Azure service connection
-            appName: 'flaskwebapp1009'              # Your Azure Web App name
-            imageName: 'myacrrepo:$(Build.BuildId)' # Your Docker image from ACR
+
