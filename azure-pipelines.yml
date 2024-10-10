@@ -1,0 +1,29 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+stages: 
+ - stage: Dockerfile_buildandPush
+   displayName: Dockerfile_buildandPush
+   jobs:
+     - job: build_and_push
+       steps:
+       - task: Docker@2
+         inputs:
+           containerRegistry: 'acr-con'
+           repository: 'myacrrepo'
+           command: 'buildAndPush'
+           Dockerfile: '**/Dockerfile'
+
+ - stage: Deploy_to_WebApp_Container
+   displayName: Deploy to Web App Container
+   jobs:
+     - job: deploy
+       steps: 
+        - task: AzureWebAppContainer@1
+          inputs:
+            azureSubscription: 'my-azure-svc-con'  # Your Azure service connection
+            appName: 'flaskwebapp1008'              # Your Azure Web App name
+            imageName: 'myacrrepo:$(Build.BuildId)' # Your Docker image from ACR
